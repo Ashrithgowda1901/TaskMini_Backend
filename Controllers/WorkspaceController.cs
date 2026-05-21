@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskMini.Common;
 using TaskMini.DTO.Workspace;
 using TaskMini.Interfaces;
@@ -16,6 +17,7 @@ namespace TaskMini.Controllers
             _workspaceService = workspaceService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetWorkspaces()
         {
@@ -29,6 +31,7 @@ namespace TaskMini.Controllers
             });
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWorkspaceById(int id)
         {
@@ -42,6 +45,7 @@ namespace TaskMini.Controllers
             });
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateWorkspace([FromBody] CreateWorkspaceDto dto)
         {

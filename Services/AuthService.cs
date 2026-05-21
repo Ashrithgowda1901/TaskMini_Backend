@@ -11,10 +11,12 @@ namespace TaskMini.Services
     public class AuthService:IAuthService
     {
         private readonly TaskMiniDbContext _dbContext;
+        private readonly IJwtService _jwtService;
 
-        public AuthService(TaskMiniDbContext dbContext)
+        public AuthService(TaskMiniDbContext dbContext, IJwtService jwtService)
         {
             _dbContext = dbContext;
+            _jwtService = jwtService;
         }
 
         public async Task<AuthResponseDto> RegisterUser(RegisterDto registerDto)
@@ -57,10 +59,13 @@ namespace TaskMini.Services
                 throw new BadRequestException("Invalid email or password");
             }
 
+            var token = _jwtService.GenerateToken(user);
             return new AuthResponseDto
             {
+                Id=user.Id,
                 Email = user.Email,
                 Name = user.Name,
+                Token = token
             };
 
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskMini.Common;
 using TaskMini.DTO.Project;
 using TaskMini.Interfaces;
@@ -16,6 +17,7 @@ namespace TaskMini.Controllers
             _projectService = projectService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetProjectsAsync()
         {
@@ -28,6 +30,7 @@ namespace TaskMini.Controllers
             });
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjectById(int id)
         {
@@ -42,6 +45,7 @@ namespace TaskMini.Controllers
         }
 
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateProjectAsync([FromBody] CreateProjectDto dto)
         {
