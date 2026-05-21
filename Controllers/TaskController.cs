@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TaskMini.Common;
 using TaskMini.DTO.Task;
 using TaskMini.Interfaces;
@@ -16,6 +17,7 @@ namespace TaskMini.Controllers
             _taskService = taskService;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetTasks([FromQuery] RequestTaskDto request)
         {
@@ -29,6 +31,7 @@ namespace TaskMini.Controllers
             });
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTaskById(int id)
         {
@@ -44,6 +47,7 @@ namespace TaskMini.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateUser(CreateTaskDto dto)
         {
@@ -65,6 +69,7 @@ namespace TaskMini.Controllers
                 });
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> UpdateTaskStatus(
             UpdateTaskStatusDto dto)

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskMini.Data;
+using TaskMini.DTO.Auth;
+using TaskMini.Interfaces;
 
 namespace TaskMini.Controllers
 {
@@ -7,13 +9,28 @@ namespace TaskMini.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        
+        private readonly IAuthService _authService;
 
-
-        [HttpPost]
-        public IActionResult Register()
+        public  AuthController(IAuthService authService)
         {
-            return Ok();
+            _authService = authService;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(RegisterDto dto)
+        {
+            var result = await _authService.RegisterUser(dto);
+
+            return Ok(result);
+           
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto dto)
+        {
+            var result = await _authService.LoginUser(dto);
+
+            return Ok(result);
         }
     }
 }
