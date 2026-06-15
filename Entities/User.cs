@@ -9,11 +9,15 @@ namespace TaskMini.Entities
         [Required]
         public string Name { get; set; } = string.Empty;
 
+        public int? RoleId { get; set; }
+
         [Required]
-        public string Email { get; set; }=string.Empty;
+        public string Email { get; set; } = string.Empty;
 
-        public string PasswordHash {  get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
 
-        public List<TaskItem> TaskItems { get; set; } = new List<TaskItem>();
+        public List<TaskItem> TaskItems { get; set; } = new();
+
+        public Role? Role { get; set; }
     }
 }

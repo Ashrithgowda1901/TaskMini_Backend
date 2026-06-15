@@ -7,9 +7,11 @@ namespace TaskMini.Middleware
     public class ExceptionHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        public ExceptionHandlingMiddleware(RequestDelegate next)
+        private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+        public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
 
@@ -24,7 +26,9 @@ namespace TaskMini.Middleware
             {
                 context.Response.ContentType = "application/json";
 
-                if(ex is AppException appException)
+                _logger.LogError(ex, "Unhandled exception occurred");
+
+                if (ex is AppException appException)
                 {
                     context.Response.StatusCode=appException.StatusCode; 
                 }
